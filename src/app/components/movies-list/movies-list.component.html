@@ -1,0 +1,22 @@
+<div class="container mt-10">
+  <div class="mb-6">
+    <span
+      class="text-white opacity-5 hidden md:block text-center text-[5rem] font-black"
+    >
+      Popular Movies
+    </span>
+
+    <h3 class="text-white text-center md:-mt-12 text-2xl md:text-4xl font-bold">
+      Popular Movies
+    </h3>
+  </div>
+
+  <div
+    class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-7"
+  >
+    <app-movie-card
+      *ngFor="let movie of popularMovies"
+      [movie]="movie"
+    ></app-movie-card>
+  </div>
+</div>

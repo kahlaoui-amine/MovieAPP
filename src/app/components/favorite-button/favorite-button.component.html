@@ -1,0 +1,21 @@
+<div
+  (click)="toggleFavorites()"
+  class="{{
+    classes
+  }} absolute rounded-full p-2 hover:bg-slate-400 top-2 right-2 cursor-pointer hover:scale-105 transform transition-all"
+>
+  <fa-icon
+    [icon]="favoriteIcon"
+    [ngStyle]="{ color: isFavorited ? 'red' : 'white' }"
+  ></fa-icon>
+</div>
+
+<div
+  *ngIf="shouldToggleAnimation"
+  class="h-60 absolute top-0 -right-5 text-center rotate-12"
+>
+  <ng-lottie
+    [options]="options"
+    (animationCreated)="animationCreated($event)"
+  ></ng-lottie>
+</div>

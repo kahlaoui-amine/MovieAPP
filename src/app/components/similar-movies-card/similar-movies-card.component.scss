@@ -1,0 +1,11 @@
+.card__parent {
+  &:hover {
+    .card__details {
+      display: flex;
+
+      & > div {
+        display: flex;
+      }
+    }
+  }
+}

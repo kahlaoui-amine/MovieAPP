@@ -1,0 +1,28 @@
+<div
+  class="relative backdrop rounded-sm shadow-md cursor-pointer hover:scale-110 transform transition-all"
+>
+  <div class="absolute top-2 right-2 hover:scale-105 transform transition-all">
+    <button
+      (click)="onDeletePress()"
+      class="bg-red-500 p-2 text-white font-black text-lg cursor-pointer"
+    >
+      X
+    </button>
+  </div>
+  <div class="ribbon ribbon-top-left">
+    <span>Watched</span>
+  </div>
+  <img
+    [routerLink]="['/movie', movie.id]"
+    src="{{ movie.poster ? poster : noPoster }}"
+    alt="{{ movie.title }}"
+    className="object-cover rounded-sm bg-backdrop"
+  />
+  <div [routerLink]="['/movie', movie.id]" class="overlay"></div>
+
+  <div
+    class="absolute bottom-5 left-5 right-5 flex items-center justify-between"
+  >
+    <h4 class="text-white text-xl font-bold">{{ movie.title }}</h4>
+  </div>
+</div>

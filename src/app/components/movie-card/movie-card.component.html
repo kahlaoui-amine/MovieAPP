@@ -1,0 +1,29 @@
+<div
+  class="relative card__parent backdrop rounded-sm shadow-md cursor-pointer hover:scale-110 transform transition-all"
+>
+  <app-favorite-button [movie]="movie"></app-favorite-button>
+
+  <img
+    [routerLink]="['/movie', movie.id]"
+    src="{{ movie.poster_path ? poster : noPoster }}"
+    alt="{{ movie.title }}"
+    className="object-cover rounded-sm bg-backdrop"
+  />
+  <div [routerLink]="['/movie', movie.id]" class="overlay"></div>
+
+  <div class="absolute bottom-5 left-5 right-5">
+    <h4 class="text-white text-xl font-bold">{{ movie.title }}</h4>
+    <div class="items-end gap-2 card__details">
+      <div
+        [routerLink]="['/movie', movie.id]"
+        class="bg-purple-500 p-3 hidden rounded-sm text-xs uppercase font-bold text-white mt-3 hover:scale-105 transform transition-all"
+      >
+        See details
+      </div>
+
+      <div class="hidden">
+        <app-track-button [movie]="movie"></app-track-button>
+      </div>
+    </div>
+  </div>
+</div>

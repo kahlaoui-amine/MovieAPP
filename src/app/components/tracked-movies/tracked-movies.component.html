@@ -1,0 +1,51 @@
+<div class="container my-6">
+  <div *ngIf="trackedMovies.length > 0; else noMovies">
+    <div class="mb-6">
+      <span
+        class="text-white opacity-5 hidden md:block text-center text-[5rem] font-black"
+      >
+        Watched Movies
+      </span>
+
+      <h3
+        class="text-white text-center md:-mt-12 text-2xl md:text-4xl font-bold"
+      >
+        Your watched Movies
+      </h3>
+    </div>
+
+    <div
+      class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-7"
+    >
+      <app-movie-card-simplified
+        *ngFor="let movies of trackedMovies"
+        [movie]="movies"
+        (onDelete)="handleOnDelete($event)"
+      ></app-movie-card-simplified>
+    </div>
+  </div>
+
+  <ng-template #noMovies>
+    <div class="text-center">
+      <div class="h-20">
+        <ng-lottie
+          [options]="options"
+          (animationCreated)="animationCreated($event)"
+        ></ng-lottie>
+      </div>
+      <h2 class="text-white font-bold">
+        Your tracked movies ({{ trackedMovies.length }})
+      </h2>
+      <h4 class="text-white text-sm opacity-25">
+        It looks like you haven't tracked any movie yet!
+      </h4>
+
+      <button
+        [routerLink]="['/movies']"
+        class="mt-5 bg-primary rounded-md p-3 hover:scale-110 transform transition-all text-xs"
+      >
+        Explore now
+      </button>
+    </div>
+  </ng-template>
+</div>

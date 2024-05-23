@@ -1,0 +1,177 @@
+<div class="min-h-screen relative">
+  <div class="z-[2] h-[350px] relative">
+    <img
+      src="{{ movieDetail.backdrop_path ? backdrop : noBackdrop }}"
+      alt="{{ movieDetail.title }}"
+      class="object-cover absolute inset-0 block h-full w-full opacity-30"
+    />
+  </div>
+
+  <div
+    class="-mt-[150px] md:-mt-[130px] relative container gap-10 justify-center items-center lg:items-start flex flex-col lg:flex-row z-10"
+  >
+    <div
+      class="poster w-[250px] flex flex-col relative gap-4 lg:sticky top-[85px]"
+    >
+      <div class="ribbon ribbon-top-left">
+        <span>{{ movieDetail.status }}</span>
+      </div>
+
+      <img
+        src="{{ movieDetail.poster_path ? poster : noPoster }}"
+        alt="{{ movieDetail.title }}"
+        class="object-cover w-full shadow-md"
+      />
+
+      <app-track-button
+        [classes]="
+          'w-full bg-purple-500 justify-center !text-xl text-white font-bold'
+        "
+        [movie]="movieDetail"
+      ></app-track-button>
+
+      <div class="flex items-center justify-center gap-3 mt-2">
+        <p class="text-white text-xs">Visit on</p>
+        <a
+          target="_blank"
+          class="hover:scale-105 transform transition-all"
+          href="//www.imdb.com/title/{{ movieDetail.imdb_id }}"
+        >
+          <img src="/assets/imdb.png" alt="imdb-logo" class="w-16" />
+        </a>
+      </div>
+    </div>
+
+    <div class="flex-1 flex flex-col gap-5 items-stretch">
+      <div
+        class="h-[150px] relative mt-10 lg:mt-0 flex flex-col gap-3 justify-center items-center lg:items-start"
+      >
+        <button
+          (click)="handleGoBack()"
+          class="flex bg-transparent border border-gray-300 items-center rounded-md shadow gap-2 transform hover:scale-110 p-2"
+        >
+          <fa-icon [icon]="backIcon" [ngStyle]="{ color: 'white' }"></fa-icon>
+
+          <p class="text-white text-sm">Back</p>
+        </button>
+
+        <ul class="flex items-center gap-2">
+          <li>
+            <a class="breadcumb__text" routerLink="/">Home</a>
+          </li>
+          <span class="breadcumb__text">/</span>
+          <li>
+            <a class="breadcumb__text" routerLink="/movies">Movies</a>
+          </li>
+          <li>
+            <span class="breadcumb__text">/</span>
+          </li>
+          <li>
+            <span class="breadcumb__text">{{ movieDetail.title }}</span>
+          </li>
+        </ul>
+      </div>
+
+      <div
+        class="justify-self-end flex items-center gap-4 flex-col lg:flex-row justify-center lg:justify-between"
+      >
+        <h2
+          class="text-white font-bold text-2xl md:text-5xl text-center lg:text-left"
+        >
+          {{ movieDetail.title }}
+        </h2>
+
+        <app-favorite-button
+          [movie]="movieDetail"
+          [classes]="'!relative'"
+        ></app-favorite-button>
+      </div>
+
+      <span
+        class="text-xs block text-center lg:text-left font-light text-white -mt-3"
+      >
+        "{{ movieDetail.tagline }}"
+      </span>
+
+      <p
+        class="text-white lg:w-[70%] mt-4 text-center lg:text-left text-xl md:text-sm"
+      >
+        {{ movieDetail.overview }}
+      </p>
+
+
+
+      <div class="mt-16 hidden md:block" *ngIf="movieVideos.length > 0">
+        <app-big-title [title]="'Videos'" [classes]="'mb-5'"></app-big-title>
+        <youtube-player videoId="{{ activeVideo.key }}"></youtube-player>
+        <div
+          class="flex mt-2 gap-2 justify-start items-center"
+          *ngIf="movieVideos.length > 1"
+        >
+          <button
+            (click)="handlePreviousVideo()"
+            class="hover:scale-110 transform"
+          >
+            <fa-icon [icon]="backIcon" [ngStyle]="{ color: 'white' }"></fa-icon>
+          </button>
+          <p
+            class="text-gray-200 font-light text-xs"
+            *ngIf="movieVideos.length > 1"
+          >
+            Explorer more videos ({{ movieIndex + 1 }}/{{ movieVideos.length }})
+          </p>
+          <button (click)="handleNextVideo()" class="hover:scale-110 transform">
+            <fa-icon [icon]="nextIcon" [ngStyle]="{ color: 'white' }"></fa-icon>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mt-10 py-10 container bg-black relative">
+    <div class="absolute inset-0 bg-pattern-bg z-[1] opacity-50"></div>
+    <div class="z-10 relative">
+      <app-big-title
+        [title]="'Info'"
+        [classes]="'mb-5 text-center'"
+      ></app-big-title>
+      <div class="grid md:grid-cols-2 gap-6 mt-20">
+        <app-movie-info
+          [classes]="'justify-center items-center'"
+          [title]="movieDetail.runtime + 'min'"
+          [subtitle]="'Runtime'"
+        ></app-movie-info>
+        <app-movie-info
+          [classes]="'justify-center items-center'"
+          [title]="movieDetail.popularity?.toFixed(2)"
+          [subtitle]="'Popularity'"
+        ></app-movie-info>
+        <app-movie-info
+          [classes]="'justify-center items-center'"
+          [title]="'$' + movieDetail.budget"
+          [subtitle]="'Budget'"
+        ></app-movie-info>
+        <app-movie-info
+          [classes]="'justify-center items-center'"
+          [title]="movieDetail.vote_average?.toFixed(2)"
+          [subtitle]="'Vote average'"
+        ></app-movie-info>
+      </div>
+    </div>
+  </div>
+
+  <div class="container mt-10" *ngIf="similarMovies.length > 0">
+    <app-big-title
+      [title]="'Similar movies'"
+      [classes]="'mb-5 text-center'"
+    ></app-big-title>
+    <div
+      class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-7"
+    >
+      <app-similar-movies-card
+        *ngFor="let movie of similarMovies"
+        [movie]="movie"
+      ></app-similar-movies-card>
+    </div>
+  </div>
+</div>

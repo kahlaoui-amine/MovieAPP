@@ -1,0 +1,26 @@
+<button
+  (click)="startTrackingMovie()"
+  class="{{
+    classes
+  }} mt-5 flex gap-3 bg-primary rounded-md p-3 hover:scale-110 transform transition-all text-xs"
+>
+  <div
+    *ngIf="shouldToggleAnimation"
+    class="h-20 absolute -top-16 left-0 right-0 text-center"
+  >
+    <ng-lottie
+      [options]="options"
+      (animationCreated)="animationCreated($event)"
+    ></ng-lottie>
+  </div>
+
+  <span *ngIf="!isBeingTracked; else notTracked">
+    <fa-icon [icon]="filmIcon"></fa-icon>
+    Track
+  </span>
+
+  <ng-template #notTracked>
+    <fa-icon [icon]="checkIcon"></fa-icon>
+    Watched
+  </ng-template>
+</button>

@@ -1,0 +1,95 @@
+<div class="">
+  <div
+    class="flex z-[2] h-[250px] absolute top-0 left-0 right-0 items-center justify-center"
+  >
+    <div
+      class="h-full w-screen bg-movies-bg bg-no-repeat bg-center opacity-40"
+    ></div>
+  </div>
+  <div
+    class="container flex items-center justify-center relative z-10 mt-20 py-20"
+  >
+    <div class="w-full md:w-1/3">
+      <app-search-input></app-search-input>
+    </div>
+  </div>
+
+  <div class="z-10 relative container">
+    <div *ngIf="isLoading" class="flex items-center justify-center">
+      <div class="w-96 h-96">
+        <ng-lottie
+          [options]="optionsLoading"
+          (animationCreated)="animationCreated($event)"
+        ></ng-lottie>
+      </div>
+    </div>
+
+    <div class="mt-4" *ngIf="results.length > 0; else noResults">
+      <div>
+        <h4 class="text-white font-bold text-sm mb-3">
+          Showing <span>{{ results.length * page }}</span> of
+          {{ total_results }} movies
+        </h4>
+      </div>
+      <div
+        class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-7"
+      >
+        <app-movie-card
+          *ngFor="
+            let movie of results
+              | paginate
+                : {
+                    itemsPerPage: 20,
+                    currentPage: page,
+                    totalItems: total_results
+                  };
+            let i = index
+          "
+          [movie]="movie"
+        ></app-movie-card>
+      </div>
+      <div class="flex items-center justify-center mt-5 text-white">
+        <pagination-controls
+          previousLabel="Prev"
+          nextLabel="Next"
+          (pageChange)="onTableDataChange($event)"
+        >
+        </pagination-controls>
+      </div>
+    </div>
+  </div>
+
+  <ng-template #noResults>
+    <div *ngIf="query; else noQuery">
+      <h5 class="text-white text-4xl font-black text-center">No results</h5>
+      <p class="text-white text-center text-xs mt-1">
+        Try again with another word
+      </p>
+  <div class="flex items-center justify-center min-h-screen">
+      <div style="height: 500px; width: 500px;" >
+        <ng-lottie
+          [options]="options"
+          (animationCreated)="animationCreated($event)"
+        ></ng-lottie>
+      </div>
+    </div>
+  </div>
+  </ng-template>
+
+  <ng-template #noQuery>
+    <div class="h-screen flex flex-col gap-2 items-center">
+      <div class="w-96 h-96">
+        <ng-lottie
+          [options]="optionsMovie"
+          (animationCreated)="animationCreated($event)"
+        ></ng-lottie>
+      </div>
+      <h5 class="text-white text-4xl font-black text-center">
+        Start by typing one word
+      </h5>
+      <p class="text-white text-center text-xs mt-3">
+        Maybe you could try "Avengers"
+      </p>
+    </div>
+  </ng-template>
+</div>

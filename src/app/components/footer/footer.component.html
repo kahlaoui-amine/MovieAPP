@@ -1,0 +1,44 @@
+<footer class="bg-gray-900 z-10 relative">
+  <div class="mx-auto w-full container p-6 sm:p-10">
+    <div class="md:flex md:justify-between">
+      <div class="mb-6 md:mb-0 flex flex-col gap-1 flex-grow">
+        <div class="w-60 h-30 mt-4">
+
+          <ng-lottie
+            [options]="options2"
+            (animationCreated)="animationCreated2($event)"
+          ></ng-lottie>
+        </div>
+
+      </div>
+      <div class="flex-1">
+        <div class="popcorn__animation">
+          <ng-lottie
+            [options]="options"
+            (animationCreated)="animationCreated($event)"
+          ></ng-lottie>
+        </div>
+      </div>
+    </div>
+    <hr class="my-6 sm:mx-auto border-gray-700 lg:my-8" />
+    <div class="sm:flex sm:items-center sm:justify-between">
+      <span class="text-sm sm:text-center text-gray-400"
+        >© 2023
+
+        . All Rights Reserved.
+      </span>
+      <div class="flex mt-4 space-x-6 sm:justify-center sm:mt-0 items-center">
+
+
+
+        <a
+          href="https://github.com/kahlaoui-amine/MovieAPP.git"
+          target="_blank"
+          class="hover:opacity-40"
+        >
+          <fa-icon [icon]="gitHubIcon" [ngStyle]="{ color: 'grey' }"></fa-icon>
+        </a>
+      </div>
+    </div>
+  </div>
+</footer>

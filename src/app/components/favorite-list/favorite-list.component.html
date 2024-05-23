@@ -1,0 +1,63 @@
+<div class="h-full">
+  <div *ngIf="favorites.length > 0; else noFavorites">
+    <div class="flex flex-col h-[310px] overflow-y-auto overflow-x-hidden">
+      <div
+        [routerLink]="['/movie', fav.id]"
+        *ngFor="let fav of favorites"
+        class="flex items-center relative justify-between gap-3 border-b border-gray-300 cursor-pointer hover:scale-105 transform"
+      >
+        <div class="flex items-center">
+          <img
+            src="{{ fav.poster }}"
+            alt="{{ fav.title }}"
+            class="w-16 h-full object-cover"
+          />
+          <div class="ml-2 px-2 py-4">
+            <h3>{{ fav.title }}</h3>
+            <p class="text-xs text-gray-400">
+              Added on: {{ renderAddedDate(fav.favoritedDate) }}
+            </p>
+          </div>
+        </div>
+        <button
+          (click)="removeFavorite(fav.id)"
+          class="bg-red-500 p-2 text-white font-black text-lg cursor-pointer mr-3"
+        >
+          <fa-icon [icon]="deleteIcon"></fa-icon>
+        </button>
+      </div>
+
+      <div
+        (click)="clearAllFavorites()"
+        class="absolute cursor-pointer hover:scale-105 transform h-[40px] bottom-0 left-0 right-0 flex items-center justify-center gap-3"
+      >
+        <fa-icon [icon]="removeAllIcon" [styles]=""></fa-icon>
+        <button class="text-red-500 text-sm">Remove all</button>
+      </div>
+    </div>
+  </div>
+
+  <ng-template #noFavorites class="h-[350px]">
+    <div class="flex items-center justify-center flex-col h-full">
+      <div class="h-20">
+        <ng-lottie
+          [options]="options"
+          (animationCreated)="animationCreated($event)"
+        ></ng-lottie>
+      </div>
+      <h2 class="font-bold text-sm">
+        Your Favorite movies ({{ favorites.length }})
+      </h2>
+      <h4 class="text-xs opacity-25 mt-2">
+        It looks like you don't have any favorite movies!
+      </h4>
+
+      <button
+        [routerLink]="['/movies']"
+        class="mt-5 bg-primary rounded-md p-3 hover:scale-110 transform transition-all text-xs"
+      >
+        Explore now
+      </button>
+    </div>
+  </ng-template>
+</div>
