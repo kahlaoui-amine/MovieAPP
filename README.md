@@ -1,20 +1,20 @@
-<br/>
-<p align="center">
-  <h2 align="center"  style="color:red;">Movie APP</h3>
+# Movie APP
 
-  <p align="center">
-    Movie tracker app built using Angular and tmdb api
-    <br/>
-    <br/>
-  </p>
+<p align="center" style="color:red;">
+  Movie tracker app built using Angular and TMDB API
+  <br/>
+  <br/>
 </p>
 
 ## About The Project
-  <h3 align="center">Home</h3>
+
+### Home
 ![Screen Shot](/src/assets/screencapture-home.png)
-  <h3 align="center">Movie Details</h3>
+
+### Movie Details
 ![Screen Shot](/src/assets/screencapture-movie-details.png)
-  <h3 align="center">Page Not Found</h3>
+
+### Page Not Found
 ![Screen Shot](/src/assets/screencapture-page-not-found.png)
 
 ## Built With
